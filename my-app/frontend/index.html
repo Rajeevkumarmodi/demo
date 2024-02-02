@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>User Registration Form</title>
+
+    <style>
+      form {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        align-items: center;
+      }
+
+      div {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+    </style>
+  </head>
+  <body>
+    <form>
+      <h3>Registration Form</h3>
+      <div>
+        <label for="firstName">First Name:</label>
+        <input type="text" id="firstName" name="firstname" required />
+      </div>
+      <div>
+        <label for="lastName">Last Name:</label>
+        <input type="text" id="lastName" name="lastname" required />
+      </div>
+      <div>
+        <label for="phone">Phone:</label>
+        <input type="number" id="phone" name="phone" required />
+      </div>
+      <div>
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" required />
+      </div>
+      <div>
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" required />
+      </div>
+      <div>
+        <label for="address">Address:</label>
+        <textarea id="address" name="address" rows="4" required></textarea>
+      </div>
+      <div>
+        <label for="country">Country:</label>
+        <input type="text" id="country" name="country" required />
+      </div>
+      <div>
+        <label for="postalZipCode">Postal/Zip Code:</label>
+        <input type="text" id="postalZipCode" name="postalZipCode" required />
+      </div>
+      <div>
+        <label for="companyName">Company Name:</label>
+        <input type="text" id="companyName" name="companyName" />
+      </div>
+      <div>
+        <label for="publishStatus">Publish Status:</label>
+        <input type="number" id="publishStatus" />
+      </div>
+      <div>
+        <label for="bankDetail">Bank Detail:</label>
+        <textarea id="bankDetail" name="bankDetail" rows="4"></textarea>
+      </div>
+
+      <input id="submitBtn" type="submit" value="Submit" />
+    </form>
+
+    <script type="module" src="/src/renderer.js"></script>
+    <script>
+      const firstName = document.getElementById("firstName").value;
+      const lastName = document.getElementById("lastName").value;
+      const phone = document.getElementById("phone").value;
+      const email = document.getElementById("email").value;
+      const password = document.getElementById("password").value;
+      const address = document.getElementById("address").value;
+      const country = document.getElementById("country").value;
+      const postalZipCode = document.getElementById("postalZipCode").value;
+      const companyName = document.getElementById("companyName").value;
+      const publishStatus = document.getElementById("publishStatus").value;
+      const bankDetail = document.getElementById("postalZipCode").value;
+      const submitBtn = document.getElementById("submitBtn");
+
+      const formData = {
+        firstName,
+        lastName,
+        phone,
+        email,
+        password,
+        address,
+        country,
+        postalZipCode,
+        companyName,
+        publishStatus,
+        bankDetail,
+      };
+
+      submitBtn.addEventListener("click",async ()=>{
+
+       const res = await fetch("http://localhost:8080/user/register",{
+          method:"POST",
+          headers:{
+            'Content-Type': 'application/json'
+          },
+          body : JSON.stringify(formData)
+        })
+
+        const data = res.json()
+        console.log(data);
+      }
+    </script>
+  </body>
+</html>
